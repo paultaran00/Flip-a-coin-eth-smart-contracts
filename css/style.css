@@ -24,9 +24,10 @@ body {
     top: 30%;
     left: 50%;
     transform: translate(-50%);
-    color: #F5D042;
+    color: #ffffff;
     font-size: 250%;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .bottom {
@@ -95,7 +96,8 @@ body {
 
 .container {
     position: absolute;
-    left: 10%;
+    left: 50%;
+    transform: translate(-50%);
     top: 25%;
 }
 
