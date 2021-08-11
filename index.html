@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/amount.css">
 
 
 
@@ -25,16 +26,20 @@
     <div class="header">
         
         <div class="login_button">Sign in with MetaMask</div>
-        <div class="welcome">Welcome</div>
+        <div class="welcome">Coin-flip Dapp</div>
     </div>
     <div class="bottom">
 
         <div class="container">
             
+            <span class="input-number-decrement">–</span><input class="input-number" type="text" value="1"><span class="input-number-increment">+</span>
 
-            <input type="number" id="amount">
-            <div class="heads">Play heads</div>
-            <div class="tails">Play tails</div>
+            <div class="switch-button"><span class="active"></span>
+                <button class="switch-button-case left active-case">Play head</button>
+                <button class="switch-button-case right">Play tail</button>
+
+                
+            </div>
 
         </div>
 
@@ -45,8 +50,8 @@
 
 
 
-
-    <script src="/js/app.js"></script>
+    <script src="/js/amount.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 
 </html>
