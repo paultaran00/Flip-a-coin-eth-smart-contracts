@@ -13,7 +13,7 @@ contract FlipContract is Ownable {
     event bet(address indexed user, uint indexed bet, bool indexed win, uint8 side);
     event funded(address owner, uint funding);
 
-    // Function to simulate coin flip 50/50 randomnes
+    // flip 50/50
     function flip(uint8 side) public payable returns(bool){
         require(address(this).balance >= msg.value.mul(2), "The contract hasn't enought funds");
         require(side == 0 || side == 1, "Incorrect side, needs to be 0 or 1");
@@ -29,17 +29,17 @@ contract FlipContract is Ownable {
         }
         emit bet(msg.sender, msg.value, win, side);
     }
-    // Function to Withdraw Funds
+    // withdraw funds
     function withdrawAll() public onlyOwner returns(uint){
         payable(msg.sender).transfer(address(this).balance);
         assert(address(this).balance == 0);
         return address(this).balance;
     }
-    // Function to get the Balance of the Contract
+    // get the balance of the contract
     function getBalance() public view returns (uint) {
         return ContractBalance;
     }
-    // Fund the Contract
+    // fund the contract
     function fundContract() public payable onlyOwner {
         require(msg.value != 0);
         ContractBalance = ContractBalance.add(msg.value);
