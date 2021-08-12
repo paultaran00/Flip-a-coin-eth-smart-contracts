@@ -1,6 +1,7 @@
 Moralis.initialize('yBGQoNrkmYp88DOu3afA9N28hngkPpYjfeqv9sZL');
 Moralis.serverURL = 'https://qbgrfr4bspbb.moralisweb3.com:2053/server';
 
+
 user = Moralis.User.current();
 if(user){
     $(".login_button").remove();
@@ -36,3 +37,5 @@ $('body').on('click', '.login_button', function() {
 $('body').on('click', '.logout_button', function() {
     logout();
 });
+
+

@@ -1,53 +1,28 @@
-// $('body').on('click', '.input-number-decrement', function() {
-//     var $buttonDecimal = $('.input-number');
-//     var oldValue = $buttonDecimal.val();
-//     if (oldValue >= 0.01) {
-//         var newVal = parseFloat(oldValue) - 0.1; 
-//     }
-//     else {
-//         var newVal = 0;
-//     }
-//     $buttonDecimal.val(Math.round((newVal * 100)) / 100);
-// });
-
-// $('body').on('click', '.input-number-increment', function() {
-//     var $buttonDecimal = $('.input-number');
-//     var oldValue = $buttonDecimal.val();
-
-//     var newVal = parseFloat(oldValue) + 0.1;
-
-//     $buttonDecimal.val(Math.round((newVal * 100)) / 100);
-
-// });
-
-
-$(function () {
-    $('.input-number-decrement').on('mousedown', function () {
-        var $buttonDecimal = $('.input-number');
-        var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g,'');
-        if (oldValue >= 0.01) {
-            var newVal = parseFloat(oldValue) - 0.1;
-        } else {
-            var newVal = 0;
-        }
-        $buttonDecimal.val(Math.round((newVal * 100)) / 100 + " ETH");
-    });
-});
-
-$(function () {
-    $('.input-number-increment').on('mousedown', function () {
-        var $buttonDecimal = $('.input-number');
-        var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g,'');
-
-        var newVal = parseFloat(oldValue) + 0.1;
-
-        $buttonDecimal.val(Math.round((newVal * 100)) / 100 + " ETH");
-    });
-
-});
-
-
 $(document).ready(function () {
+    $(function () {
+        $('.input-number-decrement').on('mousedown', function () {
+            var $buttonDecimal = $('.input-number');
+            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g, '');
+            if (oldValue >= 0.01) {
+                var newVal = parseFloat(oldValue) - 0.1;
+            } else {
+                var newVal = 0;
+            }
+            $buttonDecimal.val(Math.round((newVal * 100)) / 100 + " ETH");
+        });
+    });
+
+    $(function () {
+        $('.input-number-increment').on('mousedown', function () {
+            var $buttonDecimal = $('.input-number');
+            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g, '');
+
+            var newVal = parseFloat(oldValue) + 0.1;
+
+            $buttonDecimal.val(Math.round((newVal * 100)) / 100 + " ETH");
+        });
+
+    });
 
     timeOut = 0;
 
@@ -55,7 +30,7 @@ $(document).ready(function () {
         $(this).addClass('active');
         timeOut = setInterval(function () {
             var $buttonDecimal = $('.input-number');
-            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g,'');
+            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g, '');
 
             var newVal = parseFloat(oldValue) + 0.1;
 
@@ -71,7 +46,7 @@ $(document).ready(function () {
         $(this).addClass('active');
         timeOut = setInterval(function () {
             var $buttonDecimal = $('.input-number');
-            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g,'');
+            var oldValue = $buttonDecimal.val().replace(/[^0-9\.]/g, '');
             if (oldValue >= 0.01) {
                 var newVal = parseFloat(oldValue) - 0.1;
             } else {
@@ -116,15 +91,40 @@ switchBtnRight.addEventListener('click', function () {
     switchRight();
 }, false);
 
+async function flipcoin() {
+    let bet_side;
+    if ($(".active-case").text() == "Head") {
+        bet_side = 0
+    } else {
+        bet_side = 1
+    }
+    const web3 = await Moralis.Web3.enable()
+    let amount = $(".input-number").val().replace(/[^0-9\.]/g, '');
 
+
+    
+    
+    let contractInstance = new web3.eth.Contract(window.abi, "0xd64553aCE4278cB257Fc284c3e2E5350e87eC25e");     // need contract address after deploying
+    console.log(amount)
+    contractInstance.methods.flip(bet_side).send({
+        value: amount,
+        from: ethereum.selectedAddress
+    }).on('receipt', function (receipt) {
+        if(receipt.events.bet.returnValues.win){
+            console.log("you won")
+        }
+        else{
+            console.log("you lost")
+        }
+    })
+}
 
 $('body').on('click', '.flip', function () {
     user = Moralis.User.current();
     if (!user) {
-        alert("You neet to sign in")
+        alert("You need to sign in")
     } else {
-        console.log($(".active-case").text())
-        console.log($(".input-number").val().replace(/[^0-9\.]/g,''))
+        flipcoin();
     }
 
 });
