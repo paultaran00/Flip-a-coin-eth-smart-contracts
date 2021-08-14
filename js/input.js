@@ -119,12 +119,27 @@ async function flipcoin() {
     })
 }
 
-$('body').on('click', '.flip', function () {
+$('body').on('click', '.flip', async function () {
     user = Moralis.User.current();
     if (!user) {
         alert("You need to sign in")
     } else {
-        flipcoin();
+        await flipcoin();
     }
-
+    
 });
+
+
+async function showBiggestwinners(){
+    let biggestwinners = await Moralis.Cloud.run("biggestwinners", {});
+    $(".top_winners").remove();
+    let table = `<table class="top_winners"><thead><tr><th scope="col">Address</th><th scope="col">Total eth won</th></tr></thead><tbody></tbody></table>`;
+    $(".statistics").append(table);
+    biggestwinners.forEach( row =>{
+        var t = $(`<tr><td>${row.objectId}</td><td>${row.total_sum}</td></tr>`);
+        $(".top_winners tbody").append(t);
+    });
+    
+}
+showBiggestwinners();
+setInterval( showBiggestwinners, 1000);

@@ -79,3 +79,12 @@ body {
     transform: translate(-50%);
     top: 30%;
 }
+
+
+.statistics{
+    position: absolute;
+    left: 50%;
+    top: 30%;
+}
+
+

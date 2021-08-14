@@ -1,6 +1,30 @@
-Moralis.Cloud.define("helloworld", async (request) => {
-    return "hellooogoo";
+Moralis.Cloud.define("biggestwinners", async (request) => {
+    const query = new Parse.Query("flips");
+    query.equalTo("win", true);
+
+    const pipeline = [
+        {
+            group:{
+                objectId: "$user",
+                total_sum: { $sum: {$toInt: "$bet"}}
+            }
+        },
+        { sort : { total_sum: -1 } }
+    ]
+
+
+    const result = await query.aggregate(pipeline, {useMasterKey: true});
+    return result;
 });
+
+
+
+
+
+
+
+
+
 
 
 // use to compile and send to server

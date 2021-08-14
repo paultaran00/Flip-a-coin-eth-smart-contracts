@@ -15,7 +15,7 @@ contract FlipContract is Ownable {
 
     // flip 50/50
     function flip(uint8 side) public payable returns(bool){
-        require(address(this).balance >= msg.value.mul(2), "The contract hasn't enought funds");
+        require(address(this).balance >= msg.value.mul(2), "The contract hasnt enought funds");
         require(side == 0 || side == 1, "Incorrect side, needs to be 0 or 1");
         bool win;
         if(block.timestamp % 2 == side){
