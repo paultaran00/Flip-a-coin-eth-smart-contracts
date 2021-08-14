@@ -85,6 +85,55 @@ body {
     position: absolute;
     left: 50%;
     top: 30%;
+    background-color: #101820;
+    padding: 50px;
+    border-radius: 40px;
+}
+
+.topwinnersh1{
+    color: white;
 }
 
 
+.top_winners {
+    /* display: inline-block; */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 100%;
+    /* border: 5px solid blue; */
+    list-style-type: none;
+    overflow: none;
+}
+
+.top_winners li {
+    position: relative;
+    margin-top: 10px;
+    padding: 3%;
+    color: #52545f;
+    font-size: 120%;
+    background: #ffffffdc;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-top: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    /* text-align: center; */
+    /* vertical-align: middle; */
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.winlose{
+    position: absolute;
+    font-size: 30px;
+    font-weight: 900;
+    top: 400%;
+    left: 35%;
+    color: white;
+    display: none;
+}

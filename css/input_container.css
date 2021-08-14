@@ -151,3 +151,13 @@
   justify-content: center;
   align-items: center;
 }
+
+.balance{
+  top: -150%;
+  left: -40%;
+  width: 500px;
+  position: absolute;
+  color: white;
+  font-weight: 900;
+  font-size: 22px;
+}

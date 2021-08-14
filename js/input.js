@@ -100,7 +100,7 @@ async function flipcoin() {
     }
     const web3 = await Moralis.Web3.enable()
     let amount = $(".input-number").val().replace(/[^0-9\.]/g, '');
-
+    
 
     
     
@@ -111,10 +111,10 @@ async function flipcoin() {
         from: ethereum.selectedAddress
     }).on('receipt', function (receipt) {
         if(receipt.events.bet.returnValues.win){
-            console.log("you won")
+            atentionare("You Won")
         }
         else{
-            console.log("you lost")
+            atentionare("You Lost")
         }
     })
 }
@@ -129,17 +129,30 @@ $('body').on('click', '.flip', async function () {
     
 });
 
+function atentionare(care) {
+    $('.winlose').text(`${care}`);
+    $('.winlose').animate({height: "toggle", opacity: "toggle"}, "fast");
+    setTimeout('hide()',3000);
+  
+};
+function hide(){
+    $('.winlose').animate({height: "toggle", opacity: "toggle"}, "fast");
+};
+
 
 async function showBiggestwinners(){
     let biggestwinners = await Moralis.Cloud.run("biggestwinners", {});
     $(".top_winners").remove();
-    let table = `<table class="top_winners"><thead><tr><th scope="col">Address</th><th scope="col">Total eth won</th></tr></thead><tbody></tbody></table>`;
+    let table = `<ul class="top_winners"><li>Address &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Total eth won</li>`;
     $(".statistics").append(table);
     biggestwinners.forEach( row =>{
-        var t = $(`<tr><td>${row.objectId}</td><td>${row.total_sum}</td></tr>`);
-        $(".top_winners tbody").append(t);
+        var t = $(`<li>${row.objectId} &emsp;&emsp;&emsp; ${web3.utils.fromWei(row.total_sum.toString(), "ether")}</li>`);
+        $(".top_winners").append(t);
     });
     
 }
+
 showBiggestwinners();
 setInterval( showBiggestwinners, 1000);
+
+
